@@ -28,7 +28,7 @@ def Dehamming(listo):
     return listo
 
 def main():
-    stringy = "hi"
+    stringy = "hello world"
     data = StringToBinary(stringy)
     print(data)
     return
