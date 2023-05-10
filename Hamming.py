@@ -1,16 +1,14 @@
 import math
 
 def StringToBinary(data : str) -> str:
-    tempt, listo = [], []
-    # convert char to ascii number
+    s = ""
+    # convert char to ascii number 
+    # Conver ascii number to binary while standarizing them to all be 7 bits long
     for i in data:
-        tempt.append(ord(i))
-    
-    # convert ascii numbers to binary
-    for i in tempt:
-        listo.append(int(bin(i)[2:]))
-
-    s = ''.join(str(x) for x in listo)
+        fixer = str(bin(ord(i))[2:])
+        while len(fixer) < 7:
+            fixer = "0" + fixer
+        s += fixer
 
     return s
 
