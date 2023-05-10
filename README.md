@@ -2,7 +2,7 @@
 Learning Hamming Codes &amp; Hash Functions
 
 
-## This is an unfinished code, i will get back to updating this eventually.
+## This is an unfinished code project, i will get back to updating this eventually.
 
 __Things needed to be done__
 - [x] String to binary conversion
