@@ -1,4 +1,7 @@
 import math
+import constants
+
+
 
 def StringToBinary(data : str) -> str:
     s = ""
@@ -28,10 +31,51 @@ def BinaryToString(data : str) -> str:
 
     return stringy
 
-# prep data for transfer with error tollerance 
+# prep data for transfer with error tollerance
+# Num of Redundant bits need to satisfy 2^r >= data_bits + r + 1
+# Redundant bits = 4; 2^4 / 16 >= 7 + 4 + 1 / 12
 def hamming(data : str) -> str:
+    transport = ""
+    tempt = StringToBinary(data)
+    
+    for i in range(0,len(tempt),7):
+        # split & reverse string into char array
+        Ham = list(tempt[i:i+7][::-1])
+        # tempt vars
+        r1 = r2 = r4 = r8 = 0
 
-    return data
+        # insert redundant bits, defaulted to 0
+        Ham.insert(0,0),Ham.insert(1,0),Ham.insert(3,0),Ham.insert(7,0)
+
+        # calculate redundant bits and update them
+        for j in range(len(Ham)):
+            holder = bin(j+1)[2:]
+            if (holder[-1] == constants.R_Check):
+                r1 += 1
+            if (len(holder) >= 2):
+                if (holder[-2] == constants.R_Check and Ham[j] == constants.R_Check):
+                    r2 += 1
+            if (len(holder) >= 3):
+                if (holder[-3] == constants.R_Check and Ham[j] == constants.R_Check):
+                    r4 += 1
+            if (len(holder) >= 4):
+                if (holder[0] == constants.R_Check and Ham[j] == constants.R_Check):
+                    r8 += 1
+
+        if r1 % 2 != 0:
+            Ham[0] = 1
+        if r2 % 2 != 0:
+            Ham[1] = 1
+        if r4 % 2 != 0:
+            Ham[3] = 1
+        if r8 % 2 != 0:
+            Ham[7] = 1
+        
+        s = ''.join(str(x) for x in Ham[::-1])
+        transport += s
+
+
+    return transport
 
 # interpret transfered data
 def Dehamming(data : str) -> str:
@@ -48,14 +92,14 @@ def BitInterferance(data : str) -> str:
     return data
 
 def main():
-    stringy = "1!"
-    transport_data = StringToBinary(stringy)
+    stringy = "Y"
+    transport_data = hamming(stringy)
     print(transport_data)
 
     # BitInterferance(transport_data)
 
-    received_data = Dehamming(transport_data)
-    print(received_data)
+    #received_data = Dehamming(transport_data)
+    #print(received_data)
 
     return
 
