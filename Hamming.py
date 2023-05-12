@@ -62,6 +62,7 @@ def hamming(data : str) -> str:
                 if (holder[0] == constants.R_Check and Ham[j] == constants.R_Check):
                     r8 += 1
 
+        # ensure that everything ends in an even parity
         if r1 % 2 != 0:
             Ham[0] = 1
         if r2 % 2 != 0:
