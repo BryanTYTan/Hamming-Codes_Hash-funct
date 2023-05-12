@@ -6,7 +6,7 @@ Learning Hamming Codes &amp; Hash Functions
 
 __Things needed to be done__
 - [x] String to binary conversion
-- [ ] Binary to string conversion
+- [x] Binary to string conversion
 - [ ] Hamming function
 - [ ] Reverting Hamming function
-- [ ] Hashing
+- [ ] Hashing code project

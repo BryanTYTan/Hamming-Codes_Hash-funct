@@ -15,8 +15,16 @@ def StringToBinary(data : str) -> str:
 def BinaryToString(data : str) -> str:
     stringy = ""
 
-    for i in data:
-        print(i)
+    # split string up into 7 bit chars
+    for i in range(0, len(data),7):
+        '''
+        > it gets the 7 bits of data that corresponds to a char
+        > converts string to an int, specifying that it is based in binary
+        > converts int ascii char
+        > appends it to string
+        '''
+        Symbol = chr(int(data[i:i+7],2))
+        stringy += Symbol
 
     return stringy
 
@@ -27,6 +35,10 @@ def hamming(data : str) -> str:
 
 # interpret transfered data
 def Dehamming(data : str) -> str:
+
+
+    # convert binary data to string data
+    data = BinaryToString(data)
 
     return data
 
@@ -43,7 +55,7 @@ def main():
     # BitInterferance(transport_data)
 
     received_data = Dehamming(transport_data)
-
+    print(received_data)
 
     return
 
