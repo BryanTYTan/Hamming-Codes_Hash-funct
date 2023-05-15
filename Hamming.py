@@ -91,29 +91,39 @@ def BitInterferance(data : str) -> str:
     # Var to ensure i don't do a while true loop
     Loop_control = True
 
-    print("there are currently {} bits you can alter".format(len(data)))
+    print("\nthere are currently {} bits you can alter".format(len(data)))
 
     # handle user's inputs to always be valid.
     while(Loop_control):
         try:
             # if it is not a number throw exception
             bitaltered = int(input("Which bit would you like to alter: "))
-            # if it is a number but too big, throw exception
-            if bitaltered > len(data):
+            # if it is a number but too big or small, throw exception
+            if bitaltered > len(data) or bitaltered <= 0:
                 raise ValueError()
             Loop_control = False
         
         except ValueError:
             print("please enter a valid Number\n")
 
-    return data
+    s = list(data)
+    if s[bitaltered-1] == "0":
+        s[bitaltered-1] = "1"
+    else:
+        s[bitaltered-1] = "0"
+    alteredData = "".join(s)
+    
+
+    return alteredData
 
 def main():
     stringy = "Y"
     transport_data = hamming(stringy)
     print(transport_data)
 
-    BitInterferance(transport_data)
+    transport_data = BitInterferance(transport_data)
+
+    print(transport_data)
 
     #received_data = Dehamming(transport_data)
     #print(received_data)
