@@ -79,9 +79,7 @@ def hamming(data : str) -> str:
     return transport
 
 # interpret transfered data
-def Dehamming(data : str) -> str:
-
-
+def Dehamming(data : str) -> str:    
     # convert binary data to string data
     data = BinaryToString(data)
 
@@ -90,6 +88,24 @@ def Dehamming(data : str) -> str:
 # intentionally alter a bit 
 # in reality this error may occur during the transmission of data 
 def BitInterferance(data : str) -> str:
+    # Var to ensure i don't do a while true loop
+    Loop_control = True
+
+    print("there are currently {} bits you can alter".format(len(data)))
+
+    # handle user's inputs to always be valid.
+    while(Loop_control):
+        try:
+            # if it is not a number throw exception
+            bitaltered = int(input("Which bit would you like to alter: "))
+            # if it is a number but too big, throw exception
+            if bitaltered > len(data):
+                raise ValueError()
+            Loop_control = False
+        
+        except ValueError:
+            print("please enter a valid Number\n")
+
     return data
 
 def main():
@@ -97,7 +113,7 @@ def main():
     transport_data = hamming(stringy)
     print(transport_data)
 
-    # BitInterferance(transport_data)
+    BitInterferance(transport_data)
 
     #received_data = Dehamming(transport_data)
     #print(received_data)
