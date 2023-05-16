@@ -7,7 +7,7 @@ __Hamming code to do list__
 - [x] Hamming function
 - [x] Intentional error function
 - [x] Reverting Hamming function
-- [ ] unit tests
+- [x] unit tests
 
 > Hamming code contains some redundancy which could be improved.
 
