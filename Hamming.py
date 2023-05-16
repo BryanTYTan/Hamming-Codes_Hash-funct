@@ -79,11 +79,51 @@ def hamming(data : str) -> str:
     return transport
 
 # interpret transfered data
-def Dehamming(data : str) -> str:    
-    # convert binary data to string data
-    data = BinaryToString(data)
+def Dehamming(data : str) -> str:
+    tempt = ""
 
-    return data
+    for i in range(0,len(data),11):
+        # split & reverse string into char array
+        Ham = list(data[i:i+11][::-1])
+        # tempt vars
+        r1 = r2 = r4 = r8 = 0
+        # calculate redundant bits and update them
+        for j in range(len(Ham)):
+            holder = bin(j+1)[2:]
+            if (holder[-1] == constants.R_Check):
+                r1 += 1
+            if (len(holder) >= 2):
+                if (holder[-2] == constants.R_Check and Ham[j] == constants.R_Check):
+                    r2 += 1
+            if (len(holder) >= 3):
+                if (holder[-3] == constants.R_Check and Ham[j] == constants.R_Check):
+                    r4 += 1
+            if (len(holder) >= 4):
+                if (holder[0] == constants.R_Check and Ham[j] == constants.R_Check):
+                    r8 += 1
+        
+        # Check if bit has been changed
+        Error_check = int(str(r8%2) + str(r4%2) + str(r2%2) + str(r1%2),2)
+        if (Error_check != 0):
+            print("There is an Error at bit {} in char number {}".format(Error_check,int(i/11)+1))
+            if Ham[Error_check] == constants.R_Check:
+                Ham[Error_check-1] = "0"
+            else:
+                Ham[Error_check-1] = "1"
+        
+        # remove redundant bits
+        del Ham[0] #R1
+        del Ham[0] #R2
+        del Ham[1] #R4
+        del Ham[4] #R8
+
+        tempt += ''.join(str(x) for x in Ham[::-1])
+
+    
+    # convert binary data to string data
+    reply = BinaryToString(tempt)
+
+    return reply
 
 # intentionally alter a bit 
 # in reality this error may occur during the transmission of data 
@@ -117,16 +157,17 @@ def BitInterferance(data : str) -> str:
     return alteredData
 
 def main():
-    stringy = "Y"
+    stringy = "YES"
+    print("Original Message to be sent: {}".format(stringy))
     transport_data = hamming(stringy)
-    print(transport_data)
+    print("Message in bits {}".format(transport_data))
 
     transport_data = BitInterferance(transport_data)
 
-    print(transport_data)
+    print("\nData has gotten interferance {}".format(transport_data))
 
-    #received_data = Dehamming(transport_data)
-    #print(received_data)
+    received_data = Dehamming(transport_data)
+    print("\nMessage after error correction: {}".format(received_data))
 
     return
 

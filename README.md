@@ -6,9 +6,10 @@ __Hamming code to do list__
 - [x] Binary to string conversion
 - [x] Hamming function
 - [x] Intentional error function
-- [ ] Reverting Hamming function
+- [x] Reverting Hamming function
 - [ ] unit tests
 
+> Hamming code contains some redundancy which could be improved.
 
 __Hashing Code to do List__
 - [ ] TBA
