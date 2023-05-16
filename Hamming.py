@@ -162,14 +162,14 @@ def BitInterferance(data : str) -> str:
     return alteredData
 
 def main():
-    stringy = "Hello World."
+    stringy = "Hello world, I am a program."
     print("Original Message to be sent: {}".format(stringy))
     transport_data = hamming(stringy)
     print("Message in bits {}".format(transport_data))
 
     transport_data = BitInterferance(transport_data)
 
-    print("\nData has gotten interferance {}\n".format(transport_data))
+    print("\nData has gotten interferance\n".format(transport_data))
 
     received_data = Dehamming(transport_data)
     print("\nMessage after error correction: {}".format(received_data))
