@@ -12,4 +12,8 @@ __Hamming code to do list__
 > Hamming code contains some redundancy which could be improved.
 
 __Hashing Code to do List__
-- [ ] TBA
+- [x] General Purpose Hashing Function
+- [x] Simple collision check
+
+> Could perhaps standardize it to 256 bits or a set length.
+> Not secure nor fully resilient to collision but consistent
