@@ -17,3 +17,6 @@ __Hashing Code to do List__
 
 > Could perhaps standardize it to 256 bits or a set length.
 > Not secure nor fully resilient to collision but consistent
+
+
+## Unfortunately will be shelved as i focus on other priorities
